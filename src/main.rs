@@ -10,17 +10,14 @@ mod utils;
 
 fn main() {
     // fixme: implement bounds check!
-    let mut board = Board {
-        size: 3,
-        goal: Position::new(2, 2),
-        rows: vec![
-            Row::new(vec![0, 0, 1]),
-            Row::new(vec![1, 1, 0]),
-            Row::new(vec![0, 0, 10]),
+    let mut board =  Board::new(
+        vec![
+            vec![0, 0, 1],
+            vec![1, 1, 0],
+            vec![0, 0, 10]
         ],
-    };
-
-    println!("{}", board);
+        Position::new(2, 2)
+    );
 
     //fixme: double-move bug
     board.apply_move(Position::new(1, 1), Direction::Right);

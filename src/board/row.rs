@@ -7,15 +7,13 @@ pub struct Row {
 }
 
 impl Row {
-
     pub(crate) fn new(values: Vec<u8>) -> Row {
-        
-        let mut res: Vec<GameCell> = vec![];
-        for value in values {
-            res.push(GameCell::new(value));
-        }
+        let res = values
+            .into_iter()
+            .map(|x| GameCell::new(x))
+            .collect::<Vec<GameCell>>();
 
-        Row{ cells: res }
+        Row { cells: res }
     }
 
     pub(crate) fn grow(&mut self, index: usize) -> bool {

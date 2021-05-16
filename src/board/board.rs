@@ -10,6 +10,29 @@ pub struct Board {
 }
 
 impl Board {
+
+    pub(crate) fn new(row_values: Vec<Vec<u8>>, goal: Position) -> Board {
+
+        let size = row_values[0].len();
+
+        let rows = row_values
+            .into_iter()
+            .map(|values| {
+                assert_eq!(values.len(), size);
+                Row::new(values)
+            })
+            .collect::<Vec<Row>>();
+
+        let board = Board{
+            size,
+            rows,
+            goal,
+        };
+
+        assert!(board.get_cell(goal).cell_type==CellType::Goal, "Misplaced goal");
+        board
+    }
+
     pub(crate) fn apply_move(&mut self, position: Position, direction: Direction) {
         let mut value = self.grow_from(position);
         let mut next = Board::get_next_position(position, direction);
